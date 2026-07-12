@@ -1,26 +1,73 @@
 @import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@plugin "@tailwindcss/typography";
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scrollbar-gutter: stable;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+.site-container {
+  @apply mx-auto w-full max-w-4xl px-6;
+}
+
+/* Navigation */
+.nav-link {
+  @apply rounded-lg px-3 py-1.5 text-sm text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:text-neutral-100 dark:hover:bg-neutral-800 transition-colors;
+}
+
+/* Page */
+.page-title {
+  @apply text-2xl font-bold tracking-tight;
+}
+
+.subtitle {
+  @apply text-neutral-500 dark:text-neutral-400;
+}
+
+/* Post list */
+.post-list {
+  @apply divide-y divide-neutral-100 dark:divide-neutral-800/60;
+}
+
+.post-item {
+  @apply flex items-baseline justify-between gap-4 py-3;
+}
+
+.post-item-title {
+  @apply transition-colors;
+}
+
+.post-item:hover .post-item-title {
+  @apply text-neutral-500 dark:text-neutral-400;
+}
+
+.post-item-date {
+  @apply shrink-0 text-sm text-neutral-400 dark:text-neutral-500 tabular-nums;
+}
+
+/* Links */
+.back-link {
+  @apply text-sm text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors mb-6 inline-block;
+}
+
+.subtle-link {
+  @apply text-sm text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors;
+}
+
+.footer-link {
+  @apply hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors;
+}
+
+/* Typography */
+.prose {
+  @apply prose-neutral dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tight prose-a:underline-offset-4 prose-pre:bg-neutral-100 dark:prose-pre:bg-neutral-900 max-w-none;
 }

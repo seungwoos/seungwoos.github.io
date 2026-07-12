@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# seungwoos.github.io
 
-## Getting Started
+Personal homepage and blog. Built with Next.js (static export) and deployed to
+GitHub Pages — pushing to `main` triggers the deploy workflow automatically.
 
-First, run the development server:
+## Development
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
+pnpm dev     # dev server at http://localhost:3000
+pnpm build   # static export to out/
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+No environment variables or secrets are required.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+app/
+  layout.tsx          # root layout: fonts, header/footer, theme
+  page.tsx            # homepage: name, links, bio, recent posts
+  post/               # /post (list) and /post/[slug] (article) pages
+  globals.css         # all shared styles; .site-container controls page width
+components/           # Header, Footer, Markdown renderer, theme toggle, ...
+lib/
+  profile.ts          # homepage content: name, links, email, bio, photo
+  posts.ts            # reads content/posts/*.md at build time
+content/posts/        # blog posts (Markdown, committed to the repo)
+public/               # static assets (images, favicon, ...)
+.github/workflows/
+  deploy.yaml         # build + deploy to GitHub Pages on push to main
+```
 
-## Learn More
+## Writing a post
 
-To learn more about Next.js, take a look at the following resources:
+Add a Markdown file to `content/posts/`. The file name becomes the URL:
+`content/posts/my-post.md` → `/post/my-post`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Each file needs this frontmatter:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```markdown
+---
+title: "Post title"
+date: "2026-07-12"        # YYYY-MM-DD, used for sorting (newest first)
+description: "One-line summary shown under the title on the homepage."
+---
 
-## Deploy on Vercel
+Post body here.
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Markdown** — GitHub-flavored Markdown is supported (tables, task lists,
+  strikethrough, code blocks).
+- **Images** — put files in `public/images/` and reference them as
+  `![alt](/images/foo.png)`.
+- **Math** — KaTeX renders at build time: `$e^{i\pi} + 1 = 0$` inline, or
+  `$$ ... $$` for display equations.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Editing the homepage
+
+All intro content (name, links, email, bio, profile photo) lives in
+`lib/profile.ts`. Site-wide page width is `.site-container` in
+`app/globals.css`.
