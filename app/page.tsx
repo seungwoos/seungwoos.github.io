@@ -26,7 +26,10 @@ function InlineLinks({ text }: { text: string }) {
 }
 
 export default function Home() {
-  const recentPosts = getAllPosts().slice(0, 5);
+  const recentPosts = getAllPosts().slice(0, profile.maxBlogPosts);
+  const recentNews = [...profile.news]
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, profile.maxNewsItems);
 
   return (
     <PageContainer>
@@ -80,7 +83,7 @@ export default function Home() {
             News
           </h2>
           <ul className="mt-6 space-y-3 text-[15px] leading-relaxed text-neutral-700 dark:text-neutral-300">
-            {profile.news.map((item) => (
+            {recentNews.map((item) => (
               <li key={item.date + item.text} className="flex gap-4">
                 <span className="w-20 shrink-0 font-mono text-sm leading-relaxed text-neutral-400 dark:text-neutral-500">
                   {item.date}
@@ -102,6 +105,11 @@ export default function Home() {
             all posts &rarr;
           </Link>
         </div>
+        {recentPosts.length === 0 && (
+          <p className="mt-6 subtitle text-[15px]">
+            Posts will be updated soon.
+          </p>
+        )}
         <div className="mt-8 space-y-8">
           {recentPosts.map((post) => (
             <article key={post.slug}>

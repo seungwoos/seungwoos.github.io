@@ -24,6 +24,10 @@ export const profile = {
 
   image: null as string | null,
 
+  // Maximum number of items shown on the main page
+  maxNewsItems: 5,
+  maxBlogPosts: 5,
+
   news: [
     {
       date: "Jul 2026",

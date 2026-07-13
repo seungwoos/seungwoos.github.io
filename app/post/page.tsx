@@ -13,16 +13,20 @@ export default function BlogPage() {
   return (
     <PageContainer>
       <h1 className="page-title mb-12">Posts</h1>
-      <ul className="post-list">
-        {posts.map((post) => (
-          <li key={post.slug}>
-            <Link href={`/post/${post.slug}`} className="post-item">
-              <span className="post-item-title">{post.title}</span>
-              <span className="post-item-date">{post.date}</span>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      {posts.length === 0 ? (
+        <p className="subtitle">Posts will be updated soon.</p>
+      ) : (
+        <ul className="post-list">
+          {posts.map((post) => (
+            <li key={post.slug}>
+              <Link href={`/post/${post.slug}`} className="post-item">
+                <span className="post-item-title">{post.title}</span>
+                <span className="post-item-date">{post.date}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
     </PageContainer>
   );
 }
