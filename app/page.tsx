@@ -100,7 +100,7 @@ export default function Home() {
 
       <section className="mt-16">
         <div className="flex items-baseline justify-between border-b border-neutral-200 pb-3 dark:border-neutral-800">
-          <h2 className="text-xl font-bold tracking-tight">Blog Posts</h2>
+          <h2 className="text-xl font-bold tracking-tight">Posts</h2>
           <Link href="/post" className="subtle-link">
             all posts &rarr;
           </Link>
