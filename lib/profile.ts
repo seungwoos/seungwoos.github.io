@@ -30,12 +30,8 @@ export const profile = {
 
   news: [
     {
-      date: "Jul 2026",
-      text: "Launched my personal website!",
-    },
-    {
       date: "May 2026",
-      text: "One [paper](https://openreview.net/forum?id=By0A3FZ4Tf) accepted at ICML 2026 Workshop on GenBio!",
+      text: "[AIVARI Agent](https://openreview.net/forum?id=By0A3FZ4Tf) has been accepted at ICML 2026 [GenBio](https://genbio-workshop.github.io/2026/) Workshop!",
       tag: "Spotlight",
     },
   ] satisfies NewsItem[],
